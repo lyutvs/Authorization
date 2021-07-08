@@ -21,6 +21,7 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 @Configuration
 @EnableAuthorizationServer
+
 public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
