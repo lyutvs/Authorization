@@ -1,5 +1,6 @@
 package com.example.authorizationserver.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,17 +13,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Bean
-     public PasswordEncoder noOpPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
+
+    @Autowired
+    private CustomAuthenticationProvider authenticationProvider;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("pass")
-                .roles("USER");
+    protected void configure(AuthenticationManagerBuilder auth) {
+       auth.authenticationProvider(authenticationProvider);
     }
 
     @Override
