@@ -21,10 +21,10 @@ public class Oauth2Controller {
     private final Gson gson;
     private final RestTemplate restTemplate;
 
-    @GetMapping(value = "/callback")
+    @GetMapping(value = "/secondapp/callback") // 1. endpoint 주소 수정
     public OAuthToken callbackSocial(@RequestParam String code) {
 
-        String credentials = "testClientId:testSecret";
+        String credentials = "secondapp:secondsecret"; // 2. credentials 정보 수정
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
@@ -34,7 +34,7 @@ public class Oauth2Controller {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
         params.add("grant_type", "authorization_code");
-        params.add("redirect_uri", "http://localhost:8081/oauth2/callback");
+        params.add("redirect_uri", "http://localhost:8081/oauth2/secondapp/callback"); // 3. redirect_uri 정보 수정
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
@@ -43,10 +43,10 @@ public class Oauth2Controller {
         return null;
     }
 
-    @GetMapping(value = "/token/refresh")
+    @GetMapping(value = "/secondapp/token/refresh") // 4. endpoint 주소 수정
     private OAuthToken refreshToken(@RequestParam String refreshToken) {
 
-        String credentials = "testClientId:testSecret";
+        String credentials = "secondapp:secondsecret"; // 5. credentials 정보 수정
         String encodedCredentoals = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
