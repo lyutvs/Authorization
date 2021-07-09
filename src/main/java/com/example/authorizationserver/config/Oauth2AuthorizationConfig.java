@@ -60,15 +60,17 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
      * @throws Exception
      */
 
+    private final CustomUserDetailService userDetailService;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             super.configure(endpoints);
-            endpoints.accessTokenConverter(jwtAccessTokenConverter());
+            endpoints.accessTokenConverter(jwtAccessTokenConverter()).userDetailsService(userDetailService);
     }
 
     private AccessTokenConverter jwtAccessTokenConverter() {
         return new JwtAccessTokenConverter();
     }
-
+    
 
 }
