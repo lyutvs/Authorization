@@ -20,5 +20,8 @@ spring:
 
   security:
     oauth2:
-      jwt:
-        signkey: 123@#$
+      client:
+        clinet-id: testClientId
+        client-secret: testSecret
+      resource:
+      token-info-uri: http://localhost:8081/oauth/check_token
