@@ -57,10 +57,9 @@ public class Oauth2Controller {
         params.add("refresh_token", refreshToken);
         params.add("grant_type", "refresh_token");
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8081/oauth/token", request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:9090/oauth/token", request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             return gson.fromJson(response.getBody(), OAuthToken.class);
-
         }
 
         return null;
